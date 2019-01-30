@@ -9,8 +9,8 @@ node {
         sh "java -version"
     }
 	
-    stage('change folder') {
-        sh "cd store"
+    dir('store') {
+        sh "pwd"
     }
 
     stage('clean') {

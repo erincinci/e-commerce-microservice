@@ -9,8 +9,8 @@ node {
         sh "java -version"
     }
 	
-    stage('change folder') {
-        sh "cd invoice"
+    dir('invoice') {
+        sh "pwd"
     }
 
     stage('clean') {
