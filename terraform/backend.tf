@@ -1,7 +1,7 @@
 # Configure the Google Cloud tfstate file location
 terraform {
   backend "gcs" {
-    bucket = "1078215333386"
+    bucket = "erinc-playground"
     prefix = "terraform"
     credentials = "account.json"
   }

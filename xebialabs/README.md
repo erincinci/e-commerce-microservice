@@ -33,6 +33,8 @@ Best practice to use separate account "technical account" to manage infrastructu
 export TF_ADMIN=[GCP project ID]
 ```
 
+> NOTE: There will be a project number, a project name and a project ID when you initialize the project, and only ID should be exported as `TF_ADMIN` variable.
+
 #### Create the GCP Project
 
 Create a new project and link it to your billing account (You could do it from the GCP console GUI as well)
@@ -160,5 +162,5 @@ To deploy this blueprint with the XebiaLabs DevOps Platform, follow the steps be
     xl apply -f xebialabs.yaml
     ```
 
-2. Go to XL Release, look for the "erinc-ecommerce-test-ci-cd" template, and start a new release from it.
-3. Once you are done, go to XL Release, look for the "erinc-ecommerce-test-destroy" template, and start a new release from it to automatically rollback and destroy the resources you created.
+2. Go to XL Release, look for the "erinc-test-ci-cd" template, and start a new release from it.
+3. Once you are done, go to XL Release, look for the "erinc-test-destroy" template, and start a new release from it to automatically rollback and destroy the resources you created.

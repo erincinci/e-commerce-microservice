@@ -1,17 +1,17 @@
 apiVersion: xl-release/v1
 kind: Templates
 spec:
-- name: erinc-ecommerce-test
+- name: erinc-test
   type: xlrelease.Folder
   children:
-  - name: erinc-ecommerce-test-destroy
+  - name: erinc-test-destroy
     type: xlrelease.Release
     description: |
       This XL Release template shows how to undeploy an application, based on microservices architecture, to GCP GKE using XL Deploy and Terraform.
     tags:
     - GCP
     - GKE
-    - erinc-ecommerce-test
+    - erinc-test
     scriptUsername: !value XL_RELEASE_USERNAME
     scriptUserPassword: !value XL_RELEASE_PASSWORD
     phases:
@@ -24,40 +24,40 @@ spec:
         - name: Undeploy registry svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-registry
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-registry
         - name: Undeploy invoice svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-invoice
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-invoice
         - name: Undeploy notification svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-notification
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-notification
         - name: Undeploy store svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-store
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-store
       - name: Undeploy stateful services
         type: xlrelease.ParallelGroup
         tasks:
         - name: Undeploy invoice mysql svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-invoice-mysql
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-invoice-mysql
         - name: Undeploy store mysql svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-store-mysql
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-store-mysql
         - name: Undeploy notification mongodb svc
           type: xldeploy.Undeploy
           server: XL Deploy
-          deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-notification-mongodb
+          deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-notification-mongodb
       
       # Un-provision namespace
       - name: Undeploy xl-demo namespace
         type: xldeploy.Undeploy
         server: XL Deploy
-        deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-namespace
+        deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-namespace
       
     
     # De-provision Infra
@@ -68,4 +68,4 @@ spec:
       - name: Deprovision GCP GKE cluster
         type: xldeploy.Undeploy
         server: XL Deploy
-        deployedApplication: Environments/erinc-ecommerce-test/gcp-terraform/erinc-ecommerce-test-terraform-gke
+        deployedApplication: Environments/erinc-test/gcp-terraform/erinc-test-terraform-gke

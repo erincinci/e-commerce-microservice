@@ -2,7 +2,7 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
-- name: erinc-ecommerce-test
+- name: erinc-test
   type: core.Directory
   children:
   - name: gcp-terraform
@@ -12,17 +12,17 @@ spec:
     - name: terraform-client
       type: terraform.TerraformClient
       path: '/usr/local/bin' # for local installation
-      workingDirectory: '/tmp/erinc-ecommerce-test' # for local installation
+      workingDirectory: '/tmp/erinc-test' # for local installation
 
 ---
 apiVersion: xl-deploy/v1
 kind: Environments
 spec:
-- name: erinc-ecommerce-test
+- name: erinc-test
   type: core.Directory
   children:
   - name: gcp-terraform
     type: udm.Environment
     members:
-    - Infrastructure/erinc-ecommerce-test/gcp-terraform
-    - Infrastructure/erinc-ecommerce-test/gcp-terraform/terraform-client
+    - Infrastructure/erinc-test/gcp-terraform
+    - Infrastructure/erinc-test/gcp-terraform/terraform-client

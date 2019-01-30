@@ -1,30 +1,30 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: erinc-ecommerce-test
+- name: erinc-test
   type: core.Directory
   children:
     - name: K8S
       type: core.Directory
       children:
-      - name: erinc-ecommerce-test-notification-mongodb
+      - name: erinc-test-notification-mongodb
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: erinc-ecommerce-test-notification-mongodb
+          - name: erinc-test-notification-mongodb
             type: k8s.ResourcesFile
             file: !file ../kubernetes/notification/notification-mongodb.yml
-      - name: erinc-ecommerce-test-notification
+      - name: erinc-test-notification
         type: udm.Application
         children:
         - name: 1.0.0
           type: udm.DeploymentPackage
           deployables:
-          - name: erinc-ecommerce-test-invoice-notification
+          - name: erinc-test-invoice-notification
             type: k8s.ResourcesFile
             file: !file ../kubernetes/notification/notification-deployment.yml
-          - name: erinc-ecommerce-test-notification-svc
+          - name: erinc-test-notification-svc
             type: k8s.ResourcesFile
             file: !file ../kubernetes/notification/notification-service.yml

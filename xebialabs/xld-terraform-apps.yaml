@@ -1,7 +1,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- name: erinc-ecommerce-test
+- name: erinc-test
   type: core.Directory
   children:
 
@@ -9,18 +9,18 @@ spec:
   - name: GKE-TERRAFORM
     type: core.Directory
     children:
-    - name: erinc-ecommerce-test-terraform-gke
+    - name: erinc-test-terraform-gke
       type: udm.Application
       children:
       - name: '1.0.0'
         type: udm.DeploymentPackage
         deployables:
-        - name: erinc-ecommerce-test-gke
+        - name: erinc-test-gke
           type: terraform.Module
           file: !file ../terraform
           inputVariables:
-            project_id: 1078215333386
-            name: erinc-ecommerce-test
+            project_id: erinc-playground
+            name: erinc-test
             region: europe-west4
             gke_master_user: admin
             gke_master_pass: !value K8SMasterPassword
@@ -35,13 +35,13 @@ spec:
           password: !value K8SMasterPassword
           apiServerURL: 'https://{{%outputVariables.endpoint%}}'
           skipTLS: true
-          instanceName: erinc-ecommerce-test/gcp-gke-test-cluster
+          instanceName: erinc-test/gcp-gke-test-cluster
         
         # - name: gcp-gke-test-cluster-env
         #   type: template.udm.Environment
         #   members:
         #   - ../gcp-gke-test-cluster
-        #   instanceName: erinc-ecommerce-test/gcp-gke-test-cluster
+        #   instanceName: erinc-test/gcp-gke-test-cluster
 
 
   - name: K8S
@@ -49,7 +49,7 @@ spec:
 
 # Provision K8s namespace
     children:
-    - name: erinc-ecommerce-test-namespace
+    - name: erinc-test-namespace
       type: udm.Application
       children:
       - name: '1.0.0'
