@@ -1,0 +1,60 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: erinc-ecommerce-test
+  type: core.Directory
+  children:
+
+# Provision GKE cluster using Terraform templates
+  - name: GKE-TERRAFORM
+    type: core.Directory
+    children:
+    - name: erinc-ecommerce-test-terraform-gke
+      type: udm.Application
+      children:
+      - name: '1.0.0'
+        type: udm.DeploymentPackage
+        deployables:
+        - name: erinc-ecommerce-test-gke
+          type: terraform.Module
+          file: !file ../terraform
+          inputVariables:
+            project_id: 1078215333386
+            name: erinc-ecommerce-test
+            region: europe-west4
+            gke_master_user: admin
+            gke_master_pass: !value K8SMasterPassword
+          boundTemplates:
+          - "../gcp-gke-test-cluster"
+        # - "../gcp-gke-test-cluster-env"  
+
+        templates:
+        - name: gcp-gke-test-cluster
+          type: template.k8s.Master
+          username: admin
+          password: !value K8SMasterPassword
+          apiServerURL: 'https://{{%outputVariables.endpoint%}}'
+          skipTLS: true
+          instanceName: erinc-ecommerce-test/gcp-gke-test-cluster
+        
+        # - name: gcp-gke-test-cluster-env
+        #   type: template.udm.Environment
+        #   members:
+        #   - ../gcp-gke-test-cluster
+        #   instanceName: erinc-ecommerce-test/gcp-gke-test-cluster
+
+
+  - name: K8S
+    type: core.Directory
+
+# Provision K8s namespace
+    children:
+    - name: erinc-ecommerce-test-namespace
+      type: udm.Application
+      children:
+      - name: '1.0.0'
+        type: udm.DeploymentPackage
+        deployables:
+        - name: xl-demo
+          type: k8s.NamespaceSpec
+          namespaceName: 'xl-demo'

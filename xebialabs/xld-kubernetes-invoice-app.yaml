@@ -1,0 +1,30 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: erinc-ecommerce-test
+  type: core.Directory
+  children:
+    - name: K8S
+      type: core.Directory
+      children:
+      - name: erinc-ecommerce-test-invoice-mysql
+        type: udm.Application
+        children:
+        - name: 1.0.0
+          type: udm.DeploymentPackage
+          deployables:
+          - name: erinc-ecommerce-test-invoice-mysql
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/invoice/invoice-mysql.yml
+      - name: erinc-ecommerce-test-invoice
+        type: udm.Application
+        children:
+        - name: 1.0.0
+          type: udm.DeploymentPackage
+          deployables:
+          - name: erinc-ecommerce-test-invoice-deployment
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/invoice/invoice-deployment.yml
+          - name: erinc-ecommerce-test-invoice-svc
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/invoice/invoice-service.yml

@@ -1,0 +1,42 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: erinc-ecommerce-test
+  type: core.Directory
+  children:
+    - name: K8S
+      type: core.Directory
+      children:
+      - name: erinc-ecommerce-test-store-mysql
+        type: udm.Application
+        children:
+        - name: 1.0.0
+          type: udm.DeploymentPackage
+          deployables:
+          - name: erinc-ecommerce-test-store-mysql
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/store/store-mysql.yml
+      - name: erinc-ecommerce-test-registry
+        type: udm.Application
+        children:
+        - name: 1.0.0
+          type: udm.DeploymentPackage
+          deployables:
+          - name: erinc-ecommerce-test-application-config
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/registry/application-configmap.yml
+          - name: erinc-ecommerce-test-jhipster-registry
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/registry/jhipster-registry.yml
+      - name: erinc-ecommerce-test-store
+        type: udm.Application
+        children:
+        - name: 1.0.0
+          type: udm.DeploymentPackage
+          deployables:
+          - name: erinc-ecommerce-test-store-deployment
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/store/store-deployment.yml
+          - name: erinc-ecommerce-test-store-svc
+            type: k8s.ResourcesFile
+            file: !file ../kubernetes/store/store-service.yml
