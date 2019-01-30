@@ -8,6 +8,10 @@ node {
     stage('check java') {
         sh "java -version"
     }
+	
+    stage('change folder') {
+        sh "cd invoice"
+    }
 
     stage('clean') {
         sh "chmod +x gradlew"
